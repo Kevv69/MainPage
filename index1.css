@@ -1,0 +1,13 @@
+a{
+    line-height: 1.9;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Karla';
+}
+
+.D1{
+    display: flex;
+}
+a:hover{
+    color: #000080;
+}
