@@ -12,6 +12,10 @@
 <body>
     <div class="D1">
         <div class="D2">
+            <tr><td span=2 align=left><SPAN id=countdown>Calculating countdown to Black Friday</b></SPAN></td></tr>
+<!-- <tr><td span=2 align=left><SPAN id=countdown>Count down to <b>Green Monday 2013 : </b></SPAN></td></tr> -->
+<!-- <tr><td span=2 align=left><SPAN id=countdown>Count down to <b>Holiday Freeze 2014 : </b></SPAN></td></tr>  -->
+<tr><td valign=top>
             <h1>Important Links</h1>
 
             <ol>
@@ -202,4 +206,68 @@
 
     </div>
 </body>
+
+<script language="javascript">
+    //-------------------------------------------------------------------//
+    function getBlackFriYYYY(theYear) {
+      const lastOfNov = new Date(theYear, 10, 30).getDay();
+      const thanksgivingDay = (lastOfNov >= 4 ? 34 : 27) - lastOfNov;
+      const blackFriday = thanksgivingDay + 1;
+      return `Nov ${blackFriday}, ${theYear}`;
+    }
+    //-------------------------------------------------------------------//
+    function getBlackFri(){
+      response = "";
+      var today       = new Date();
+      var BlkFriSTR = getBlackFriYYYY(today.getFullYear());
+      var BlkFriDTE  = new Date(BlkFriSTR);
+      //  today = new Date(BlkFriSTR);        // next Blk Fri - for testing only
+      //  today.setDate(today.getDate() + 1); // next Blk Fri - for testing only
+      if (BlkFriDTE  < today) {
+        BlkFriSTR = getBlackFriYYYY(today.getFullYear()+1);
+      //  BlkFriDTE  = new Date(BlkFriSTR);
+      }
+      return BlkFriSTR;
+    }
+    //-------------------------------------------------------------------//
+    function getCountDownString(CountDownDate) {
+    var target_date = new Date(CountDownDate).getTime();
+    var days, hours, minutes, seconds;
+    var countDownString
+    
+    // find the amount of "seconds" between now and target
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
+    
+    // do some time calculations
+    days = parseInt(seconds_left / 86400);
+    seconds_left = seconds_left % 86400;
+    hours = parseInt(seconds_left / 3600);
+    seconds_left = seconds_left % 3600;
+    minutes = parseInt(seconds_left / 60);
+    seconds = parseInt(seconds_left % 60);
+    
+    //format countdown string + set tag value
+    countDownString =   days + "d, " + hours + "h, "
+    + minutes + "m, " + seconds + "s" + "</b>";
+    return countDownString;
+    }
+    //-------------------------------------------------------------------//
+    function setCountDownHTML() {
+    
+    var countDownHTML = "Count down to <b>Black Friday "
+    var blackFri = getBlackFri();
+        countDownHTML += new Date(blackFri).getFullYear();
+        countDownHTML += ": ";
+        countDownHTML += getCountDownString(blackFri);
+        countDownHTML += "</b>";
+     // countDownHTML += "<br/>" + blackFri;
+      document.getElementById("countdown").innerHTML = countDownHTML;
+      //return;
+    }
+    //-------------------------------------------------------------------//
+    setInterval(function () {
+      setCountDownHTML();
+    }, 1000);
+    </script>
 </html>
